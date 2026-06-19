@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroTech - Inovação no Campo</title>
+    
+    <!-- Ícones para os Cards -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+
+    <!-- VISUAL DO SITE (CSS EMBUTIDO PARA NÃO DAR ERRO) -->
+    <style>
+        :root {
+            --primary-green: #2e7d32;     /* Verde folha escuro */
+            --light-green: #4caf50;       /* Verde folha vibrante */
+            --earth-brown: #3e2723;       /* Marrom terra profundo */
+            --light-brown: #5d4037;       /* Marrom argila */
+            --bg-light: #f4f6f0;          /* Fundo suave off-white esverdeado */
+            --text-dark: #212529;         /* Texto principal */
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-top: 80px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Menu de Navegação */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--earth-brown);
+        }
+
+        .logo span {
+            color: var(--primary-green);
+        }
+
+        .logo i {
+            color: var(--light-green);
+            margin-right: 8px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-green);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-green);
+        }
+
+        /* Banner Principal (Hero) */
+        .hero {
+            background: linear-gradient(135deg, rgba(62, 39, 35, 0.85), rgba(46, 125, 40, 0.75)), 
+                        url('https://unsplash.com') no-repeat center center/cover;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            border-radius: 0 0 50px 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-content h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 35px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--light-green), var(--primary-green));
+            color: var(--white);
+            padding: 15px 35px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(46, 125, 50, 0.6);
+        }
+
+        /* Seção de Cards */
+        .cards-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--earth-brown);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        /* O Card Visualmente Interativo */
+        .card {
+            background-color: var(--white);
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--light-brown), var(--primary-green));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(62, 39, 37, 0.15);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            color: var(--primary-green);
+            margin-bottom: 25px;
+            display: inline-block;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.15) rotate(5deg);
+            color: var(--light-green);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: var(--earth-brown);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .card p {
+            color: #5a6268;
+            margin-bottom: 30px;
+        }
+
+        .card-btn {
+            background: transparent;
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+            padding: 10px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-btn {
+            background-color: var(--primary-green);
+            color: var(--white);
+        }
+
+        footer {
+            background-color: var(--earth-brown);
+            color: #efebe9;
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 40px;
+            border-top: 5px solid var(--primary-green);
+        }
+
+        @media (max-width: 768px) {
+            .navbar { flex-direction: column; gap: 15px; }
+            nav ul li { margin: 0 15px; }
+            .hero-content h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <div class="navbar container">
+            <div class="logo">
+                <i class="fa-solid fa-seedling"></i> Agro<span>Tech</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Início</a></li>
+                    <li><a href="#cards">Tecnologias</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Banner -->
+    <section class="hero">
+        <div class="hero-content container">
+            <h1>O Futuro do Agronegónegocio</h1>
+            <p>Conectando a tecnologia com a Mãe Na Natureza.</p>
+            <a href="#cards" class="btn">Explorar Soluções</a>
+        </div>
+    </section>
+
+    <!-- Seção de Cards -->
+    <section id="cards" class="cards-section container">
+        <div class="section-title">
+            <h2>Nossos Pilares de Inovação</h2>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card" data-info="Monitoramento via satélite 24 horas por dia.">
+                <div class="card-icon"><i class="fa-solid fa-satellite-dish"></i></div>
+                <h3>Agricultura de Precisão</h3>
+                <p>Otimize o uso de insumos utilizando dados detalhados e mapas do solo.</p>
+                <button class="card-btn">Ver Detalhes</button>
+            </div>
+
+            <div class="card" data-info="Sistemas que reduzem o desperdício de água em 40%.">
+                <div class="card-icon"><i class="fa-solid fa-droplet"></i></div>
+                <h3>Irrigação Inteligente</h3>
+                <p>Sensores conectados que medem a umidade da terra em tempo real.</p>
+                <button class="card-btn">Ver Detalhes</button>
+            </div>
+
+            <div class="card" data-info="Relatórios automatizados de manejo biológico.">
+                <div class="card-icon"><i class="fa-solid fa-leaf"></i></div>
+                <h3>Manejo Sustentável</h3>
+                <p>Práticas regenerativas que protegem os nutrientes naturais da sua terra.</p>
+                <button class="card-btn">Ver Detalhes</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 AgroTech. Cultivando tecnologia, colhendo futuro.</p>
+    </footer>
+
